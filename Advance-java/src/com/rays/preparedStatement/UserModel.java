@@ -3,6 +3,8 @@ package com.rays.jdbc.preparedStatement;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 
+import javax.management.RuntimeErrorException;
+
 
 public class UserModel {
 	
@@ -149,5 +151,29 @@ public class UserModel {
 		}
 	    	return bean;
 	    }
+	    
+	    public void changePassword(String login,String password,String newPassword) throws ClassNotFoundException, SQLException {
+	    		    	
+			
+	    	UserBean bean = autenticate(login, password);
+	    	if (bean!=null) {
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				
+				Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb","root","root");
+				
+				PreparedStatement ptmt=conn.prepareStatement("Update st_user set password=? where id=?");
+				
+				ptmt.setString(1, newPassword);
+				ptmt.setInt(2, bean.getId());
+				
+				ptmt.executeUpdate();
+
+	    		
+				System.out.println("password change sucessfully");
+			}else {
+				throw new RuntimeException("wrong user name and password");
+			}
+	    }
+	    
 	
 }

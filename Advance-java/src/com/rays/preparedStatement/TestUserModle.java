@@ -7,10 +7,12 @@ import java.text.SimpleDateFormat;
 public class TestUserModle {
 	public static void main(String[] args) throws Exception {
 //		 testFindByLogin();
-//		 testAdd();
+//     	 testAdd();
 //	     testUpdate();
 //		 testDelete();
-		testAutenticate();
+//		testAutenticate();
+		testChangePassword();
+		
 		
 	}
 	public static void testAdd() throws Exception {
@@ -88,7 +90,7 @@ public class TestUserModle {
 //		System.out.println(model.nextpk());
 
 		
-		UserBean existsBean = model.autenticate("ram@gmail.com" ,"ram123 ");
+		UserBean existsBean = model.autenticate("ram@gmail.com" ,"ram123");
 		
 		if(existsBean != null) {
 			System.out.println("login sucesfull");
@@ -98,6 +100,10 @@ public class TestUserModle {
 		
 		
 		}
+	}
+	public static void testChangePassword() throws ClassNotFoundException, SQLException {
+		UserModel  model = new UserModel ();
+		model.changePassword("ram@gmail.com","ram123","123457");
 	}
 
 
