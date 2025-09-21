@@ -3,6 +3,8 @@ package com.rays.jdbc.preparedStatement;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Iterator;
+import java.util.List;
 
 public class TestUserModle {
 	public static void main(String[] args) throws Exception {
@@ -11,9 +13,8 @@ public class TestUserModle {
 //	     testUpdate();
 //		 testDelete();
 //		testAutenticate();
-		testChangePassword();
-		
-		
+//		testChangePassword();
+		testSearch();		
 	}
 	public static void testAdd() throws Exception {
 		
@@ -104,6 +105,31 @@ public class TestUserModle {
 	public static void testChangePassword() throws ClassNotFoundException, SQLException {
 		UserModel  model = new UserModel ();
 		model.changePassword("ram@gmail.com","ram123","123457");
+	}
+	
+	public static void testSearch() throws Exception {
+		
+		UserModel model=new UserModel();
+		
+		List list=model.search(null);
+		
+     Iterator<UserBean>	it=	list.iterator();
+     
+     while(it.hasNext()) {
+    	 
+     UserBean bean=  it.next();
+     
+     System.out.println(bean.getId());
+     System.out.println(bean.getFirstName());
+     System.out.println(bean.getLastName());
+     System.out.println(bean.getLogin());
+     System.out.println(bean.getPassword());
+     System.out.println(bean.getDob());
+     
+    	 
+     }
+		
+		
 	}
 
 

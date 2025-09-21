@@ -2,8 +2,12 @@ package com.rays.jdbc.preparedStatement;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.management.RuntimeErrorException;
+
+import jdk.nashorn.internal.runtime.arrays.ArrayLikeIterator;
 
 
 public class UserModel {
@@ -161,18 +165,50 @@ public class UserModel {
 				
 				Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb","root","root");
 				
-				PreparedStatement ptmt=conn.prepareStatement("Update st_user set password=? where id=?");
+				PreparedStatement psmt=conn.prepareStatement("Update st_user set password=? where id=?");
 				
-				ptmt.setString(1, newPassword);
-				ptmt.setInt(2, bean.getId());
+				psmt.setString(1, newPassword);
+				psmt.setInt(2, bean.getId());
 				
-				ptmt.executeUpdate();
+				psmt.executeUpdate();
 
 	    		
 				System.out.println("password change sucessfully");
 			}else {
 				throw new RuntimeException("wrong user name and password");
 			}
+	    }
+	    public List search(UserBean bean)throws Exception  {
+	    	List list = new ArrayList();
+	    	
+	    	StringBuffer sql=new StringBuffer("selectg * from st_user");
+	    	
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb","root","root");
+			
+			System.out.println("-------------------->"+sql.toString());
+			
+			PreparedStatement psmt=conn.prepareStatement(sql.toString());
+			
+			ResultSet rs=psmt.executeQuery();
+			
+			
+			while(rs.next()) {
+				 bean = new UserBean ();
+				
+				bean.setId(rs.getInt(1));
+				bean.setFirstName(rs.getString(2));
+				bean.setLastName(rs.getString(3));
+				bean.setLogin(rs.getString(4));
+				bean.setPassword(rs.getString(5));
+				bean.setDob(rs.getDate(6));
+				
+				list.add(bean);
+			}
+			return list;
+	    	
+	    	
 	    }
 	    
 	
