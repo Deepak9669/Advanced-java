@@ -5,9 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.management.RuntimeErrorException;
 
-import jdk.nashorn.internal.runtime.arrays.ArrayLikeIterator;
+
 
 
 public class UserModel {
@@ -181,7 +180,32 @@ public class UserModel {
 	    public List search(UserBean bean)throws Exception  {
 	    	List list = new ArrayList();
 	    	
-	    	StringBuffer sql=new StringBuffer("selectg * from st_user");
+	    	
+	    	StringBuffer sql=new StringBuffer("select * from st_user where 1=1");
+	    	if(bean!=null) {
+	    		if(bean.getFirstName() != null && bean.getFirstName().length()>0) {
+	    			sql.append(" and firstName like '"+ bean.getFirstName()+"%'");
+	    			
+	    		}
+		    		if(bean.getLastName() != null && bean.getLastName().length()>0) {
+		    			sql.append(" and lastName like '"+ bean.getLastName()+"%'");
+		    			
+		    		}
+			    		if(bean.getLogin() != null && bean.getLogin().length()>0) {
+			    			sql.append(" and login like '"+ bean.getLogin()+"%'");
+			    			
+			    		}
+			    		if(bean.getPassword() != null && bean.getPassword().length()>0) {
+			    			sql.append(" and password like '"+ bean.getPassword() +"%'");
+			    			
+			    		}
+			    		if(bean.getId()>0 && bean.getId()<nextpk()) {
+			    			sql.append(" and id like '"+ bean.getId()+"%'");
+			    			
+			    		}
+		    		}
+	    	
+	    	
 	    	
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			
@@ -211,5 +235,5 @@ public class UserModel {
 	    	
 	    }
 	    
-	
-}
+	    }
+

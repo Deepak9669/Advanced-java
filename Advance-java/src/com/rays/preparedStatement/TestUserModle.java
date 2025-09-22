@@ -111,20 +111,27 @@ public class TestUserModle {
 		
 		UserModel model=new UserModel();
 		
-		List list=model.search(null);
+		UserBean bean = new UserBean();
+//		bean.setFirstName("devil");
+//		bean.setLastName("verma");
+//		bean.setLogin("devil@123");
+//		bean.setPassword("dev@123");
+		bean.setId(2);
+		
+		List list= model.search(bean);
 		
      Iterator<UserBean>	it=	list.iterator();
      
      while(it.hasNext()) {
     	 
-     UserBean bean=  it.next();
+      bean= it.next();
      
-     System.out.println(bean.getId());
-     System.out.println(bean.getFirstName());
-     System.out.println(bean.getLastName());
-     System.out.println(bean.getLogin());
-     System.out.println(bean.getPassword());
-     System.out.println(bean.getDob());
+     System.out.print(bean.getId());
+     System.out.print( "\t"+bean.getFirstName());
+     System.out.print("\t"+bean.getLastName());
+     System.out.print("\t"+bean.getLogin());
+     System.out.print("\t"+bean.getPassword());
+     System.out.println("\t"+bean.getDob());
      
     	 
      }
