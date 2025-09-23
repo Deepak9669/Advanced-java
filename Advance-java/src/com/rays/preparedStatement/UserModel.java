@@ -203,8 +203,11 @@ public class UserModel {
 			    			sql.append(" and id like '"+ bean.getId()+"%'");
 			    			
 			    		}
+			    		if(bean.getDob()!=null) {
+			    			sql.append(" and dob like '"+ new java.sql.Date(bean.getDob().getTime())+"' ");
+			    					    		
 		    		}
-	    	
+	    	}
 	    	
 	    	
 			Class.forName("com.mysql.cj.jdbc.Driver");

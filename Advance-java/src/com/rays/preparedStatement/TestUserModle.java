@@ -14,7 +14,7 @@ public class TestUserModle {
 //		 testDelete();
 //		testAutenticate();
 //		testChangePassword();
-		testSearch();		
+    	testSearch();		
 	}
 	public static void testAdd() throws Exception {
 		
@@ -109,6 +109,8 @@ public class TestUserModle {
 	
 	public static void testSearch() throws Exception {
 		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
 		UserModel model=new UserModel();
 		
 		UserBean bean = new UserBean();
@@ -116,7 +118,8 @@ public class TestUserModle {
 //		bean.setLastName("verma");
 //		bean.setLogin("devil@123");
 //		bean.setPassword("dev@123");
-		bean.setId(2);
+//		bean.setId(2);
+		bean.setDob(sdf.parse("2002-06-01"));
 		
 		List list= model.search(bean);
 		
